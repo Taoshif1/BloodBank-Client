@@ -1,7 +1,7 @@
 import { useState } from 'react';
-import { Outlet, NavLink } from 'react-router-dom';
+import { Outlet, NavLink, Link } from 'react-router-dom';
 import useAuth from '../../hooks/useAuth';
-import { FaHome, FaUser, FaPlus, FaList, FaUsers, FaDonate, FaDollarSign, FaBars, FaTimes } from 'react-icons/fa';
+import { FaHome, FaUser, FaPlus, FaList, FaUsers, FaDonate, FaBars, FaTimes, FaArrowLeft } from 'react-icons/fa';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const DashboardLayout = () => {
@@ -9,21 +9,21 @@ const DashboardLayout = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   const donorLinks = [
-    { to: '/dashboard', icon: <FaHome />, label: 'Home', end: true },
+    { to: '/dashboard', icon: <FaHome />, label: 'Dashboard Home', end: true },
     { to: '/dashboard/profile', icon: <FaUser />, label: 'Profile' },
     { to: '/dashboard/create-donation-request', icon: <FaPlus />, label: 'Create Request' },
     { to: '/dashboard/my-donation-requests', icon: <FaList />, label: 'My Requests' },
   ];
 
   const adminLinks = [
-    { to: '/dashboard', icon: <FaHome />, label: 'Home', end: true },
+    { to: '/dashboard', icon: <FaHome />, label: 'Dashboard Home', end: true },
     { to: '/dashboard/profile', icon: <FaUser />, label: 'Profile' },
     { to: '/dashboard/all-users', icon: <FaUsers />, label: 'All Users' },
     { to: '/dashboard/all-blood-donation-request', icon: <FaDonate />, label: 'All Requests' },
   ];
 
   const volunteerLinks = [
-    { to: '/dashboard', icon: <FaHome />, label: 'Home', end: true },
+    { to: '/dashboard', icon: <FaHome />, label: 'Dashboard Home', end: true },
     { to: '/dashboard/profile', icon: <FaUser />, label: 'Profile' },
     { to: '/dashboard/all-blood-donation-request', icon: <FaDonate />, label: 'All Requests' },
   ];
@@ -42,7 +42,7 @@ const DashboardLayout = () => {
         {/* Mobile Menu Button */}
         <button
           onClick={() => setSidebarOpen(!sidebarOpen)}
-          className="lg:hidden fixed top-4 left-4 z-50 btn btn-circle btn-error text-white"
+          className="lg:hidden fixed top-4 left-4 z-50 btn btn-circle btn-error text-white shadow-lg"
         >
           {sidebarOpen ? <FaTimes /> : <FaBars />}
         </button>
@@ -60,6 +60,18 @@ const DashboardLayout = () => {
               <div className="p-6">
                 <h2 className="text-2xl font-bold text-error mb-2">🩸 Dashboard</h2>
                 <p className="text-sm text-gray-600 capitalize">{userData?.role || 'User'}</p>
+              </div>
+
+              {/* Back to Home Link */}
+              <div className="px-4 pb-2">
+                <Link
+                  to="/"
+                  onClick={() => setSidebarOpen(false)}
+                  className="flex items-center gap-3 px-4 py-3 rounded-lg text-gray-700 hover:bg-red-50 transition-all"
+                >
+                  <FaArrowLeft className="text-lg" />
+                  <span className="font-medium">Back to Home</span>
+                </Link>
               </div>
 
               <nav className="px-4 pb-6">

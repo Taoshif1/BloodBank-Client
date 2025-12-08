@@ -23,6 +23,7 @@
   align-items: center;
   gap: 6px;
   color: #111;
+  z-index: 101;
 }
 
 .icon {
@@ -39,12 +40,19 @@
   text-decoration: none;
   font-weight: 500;
   color: #444;
+  transition: color 0.3s;
+}
+
+.nav-links a:hover,
+.nav-links a.active {
+  color: #ef4444;
 }
 
 .actions {
   display: flex;
   align-items: center;
   gap: 12px;
+  z-index: 101;
 }
 
 .link-cta {
@@ -61,6 +69,19 @@
   border: none;
   font-size: 0.9rem;
   cursor: pointer;
+  transition: all 0.3s;
+}
+
+.btn:hover {
+  background: #dc2626;
+}
+
+.btn-primary {
+  background: #ef4444;
+  color: white;
+  text-decoration: none;
+  padding: 8px 14px;
+  border-radius: 8px;
 }
 
 .mobile-toggle {
@@ -69,37 +90,56 @@
   background: none;
   border: none;
   cursor: pointer;
+  z-index: 101;
 }
 
-/* ✅ MOBILE BEHAVIOR */
-@media (max-width: 768px) {
+.mobile-overlay {
+  display: none;
+}
 
+/* MOBILE */
+@media (max-width: 768px) {
   .mobile-toggle {
     display: block;
   }
 
   .nav-links {
-  position: absolute;
-  top: 64px;
-  left: 0;
-  width: 100%;
-  background: white;
-  flex-direction: column;
-  padding: 20px;
-  gap: 15px;
-  border-top: 1px solid #eee;
+    position: fixed;
+    top: 62px;
+    left: 0;
+    right: 0;
+    background: white;
+    flex-direction: column;
+    padding: 20px;
+    gap: 15px;
+    border-top: 1px solid #eee;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden;
+    transform: translateY(-10px);
+    transition: all 0.3s ease-in-out;
+  }
 
-  /* animation base state */
-  max-height: 0;
-  opacity: 0;
-  overflow: hidden;
-  transform: translateY(-10px);
-  transition: all 0.35s ease-in-out;
-}
+  .nav-links.show {
+    max-height: 400px;
+    opacity: 1;
+    transform: translateY(0);
+  }
 
-.nav-links.show {
-  max-height: 300px;
-  opacity: 1;
-  transform: translateY(0);
-}
+  .mobile-overlay {
+    display: block;
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 99;
+  }
+
+  .actions {
+    gap: 8px;
+  }
+
+  .link-cta {
+    display: none;
+  }
 }
